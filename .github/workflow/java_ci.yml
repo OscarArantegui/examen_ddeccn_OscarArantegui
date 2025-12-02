@@ -1,0 +1,22 @@
+name: Java compilador y .jar
+on: push
+
+jobs:
+
+	build-test:
+		runs-on:ubuntu-latest
+
+		steps:
+			-name: Compile code
+			run: |
+			mkdir build
+			javac -d biuld src/*.java
+
+			-name: Generar jar
+			run: |
+			cd build
+			jar cvf holamundo.jar -C build
+			
+			-name: subir jar
+			uses: actions/upload-artifact @v5
+			with: build/holamundo.jar
